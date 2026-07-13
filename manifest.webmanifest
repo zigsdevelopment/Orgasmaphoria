@@ -1,10 +1,10 @@
 {
   "name": "Orgasmaphoria",
   "short_name": "Orgasmaphoria",
-  "description": "Music, member content, events, and community.",
-  "start_url": "index.html",
+  "description": "Music, mystery, and meaningful connection.",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#09070d",
+  "background_color": "#08060b",
   "theme_color": "#09070d",
   "icons": [
     {"src": "assets/images/icon-192.png", "sizes": "192x192", "type": "image/png"},
