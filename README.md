@@ -1,85 +1,140 @@
-# Orgasmaphoria Website — Version 2
+# Orgasmaphoria Multi-Page Member Portal Prototype
 
-A responsive static website for Orgasmaphoria, built around the supplied purple, black, and rose-gold logo and the official Spotify artist profile.
+This package is a full multi-page artist and community website demonstration for Orgasmaphoria.
 
 ## What is included
 
-- Responsive desktop, tablet, and mobile layouts
-- Background-removed transparent logo and optimized web versions
-- Refined 18+ entrance notice remembered for 30 days
-- Official Spotify artist profile and embedded live catalog
-- Share button with Web Share / clipboard support
-- Music, spoken-word, podcast, values, collaboration, and contact sections
-- Electronic press kit with downloadable brand assets
-- Licensing, media, guest feature, and event inquiry areas
-- Newsletter form prepared for Formspree, Mailchimp, Brevo, or another provider
-- Editable social links and podcast URL
-- Privacy and terms starter templates
-- Social sharing image, favicon, app icons, web manifest, sitemap, robots file, and 404 page
-- Search-engine and structured-data starter metadata
-- Keyboard navigation, reduced-motion support, semantic headings, and accessible labels
+### Public pages
 
-## Files to edit before launch
+- Home
+- Spotify listening page
+- Membership overview
+- Member library preview
+- Events and invitations
+- Separate-purchase storefront
+- Normal contact page
+- Media and collaboration page
+- Site guide
+- Accessibility statement
+- Privacy starter
+- Terms starter
+- 404 page
 
-### `script.js`
-At the top of the file, update:
+### Member pages
 
-- `podcastUrl`
-- `businessEmail`
-- `newsletterEndpoint`
-- Instagram, TikTok, and YouTube links
+- Sign in and local account creation
+- Dashboard
+- Member directory
+- Member profiles
+- Direct-message demonstration
+- Privacy settings
+- Accessibility and appearance settings
+- Saved library items
+- Event RSVPs
+- Local data export
 
-The official Spotify artist link is already installed.
+### Staff pages
 
-### `index.html`
-Update the following once the live domain is known:
+- Staff-only portal demonstration
+- Local document upload through IndexedDB
+- Content type, access, status, tags, and descriptions
+- Content inventory
+- Local contact-form inbox
+- Test report count
+- Staff upload guidance
 
-- The `MusicGroup` structured-data URL
-- Any biography or wording your parents want changed
-- The business email if you prefer editing it directly as well
+### Example content
 
-### `press-kit.html`
-Replace the placeholder email and add:
+- Signals & Stories printable conversation card game
+- Listening Salon host and activity guide
+- Midnight Pages reflection workbook
+- After Dark Listening Salon invitation
+- Staff release and publishing checklist
+- Three downloadable calendar invitations
+- Four sample store listings
+- Fictional member profiles and messages
 
-- Parent/artist names, if they want them public
-- City or region
-- A more specific origin story
-- Manager, booking, licensing, or publicist contacts
-- Approved photos or album artwork
+## Demo accounts
 
-### `privacy.html` and `terms.html`
-These are starter templates, not legal advice. They must be updated to reflect the final mailing-list provider, analytics services, business location, and actual practices.
+Open `login.html` and choose one of the one-click accounts:
+
+- **Morgan Rose:** Inner Circle member
+- **Alex Rowan:** Velvet Patron
+- **Studio Admin:** Staff portal access
+
+You may also create a local test account. Do not use a real password. The account exists only in that browser.
+
+## Important production limitations
+
+This package uses localStorage and IndexedDB to make the prototype interactive without a server. That makes it useful for design review and testing, but it is not secure production infrastructure.
+
+The following require a real backend:
+
+- Verified accounts and password recovery
+- Secure sessions and multi-device access
+- Membership billing and renewals
+- One-time payments and refunds
+- Private document storage
+- Server-enforced access permissions
+- Real direct messages
+- Moderation and staff access controls
+- Contact-email delivery
+- Purchase history and protected downloads
+- Audit logs, backups, and recovery
+
+**Never upload real private documents to GitHub Pages or any public repository.** Files inside a static site can be discovered even when the interface labels them “staff only.”
+
+See:
+
+- `docs/BACKEND-ROADMAP.md`
+- `docs/CONTENT-ADMIN-GUIDE.md`
+- `backend/schema.sql`
+- `guide.html`
+
+## Files to edit first
+
+### `assets/js/data.js`
+
+Update:
+
+- Contact email and form endpoint
+- Membership names and pricing
+- Sample events
+- Products
+- Library items
+- Member examples
+- Spotify links if they change
+
+### Every policy page
+
+The privacy and terms pages are starter text only. They must reflect the actual business, jurisdiction, payment provider, data practices, refund rules, moderation, and legal obligations before launch.
 
 ### `robots.txt` and `sitemap.xml`
-Replace `https://YOUR-DOMAIN.example` with the final website address.
 
-## Logo files
+Replace `YOUR-DOMAIN.example` with the final public domain.
 
-- `assets/orgasmaphoria-logo-transparent.png` — full-resolution transparent master
-- `assets/orgasmaphoria-logo.webp` — optimized website version
-- `assets/icon-192.png` and `assets/icon-512.png` — profile/app icons
-- `assets/orgasmaphoria-og.jpg` — social sharing card
+## Running locally
 
-## Newsletter setup
-
-The current form is intentionally in preview mode. To make it work:
-
-1. Create a form or audience with Formspree, Mailchimp, Brevo, ConvertKit, or a similar provider.
-2. Copy the provider's form endpoint.
-3. Paste it into `newsletterEndpoint` near the top of `script.js`.
-4. Test with an email address you control.
-5. Update the privacy notice to name the provider.
-
-## Opening locally
-
-Double-click `index.html`, or run a local server from the folder:
+Opening `index.html` directly works for most features. A local server is more reliable:
 
 ```bash
-python -m http.server 8000
+python -m http.server 8080
 ```
 
-Then open `http://localhost:8000`.
+Then visit:
 
-## Deployment
+```text
+http://localhost:8080/
+```
 
-The site is static and works on GitHub Pages, Cloudflare Pages, Netlify, Bluehost, or most ordinary web hosts. See `HOSTING-GUIDE.md` for the recommended free testing setup.
+## Free static testing
+
+For design testing, deploy the entire `orgasmaphoria-site` folder to GitHub Pages, Cloudflare Pages, Netlify, or another static host.
+
+GitHub Pages is suitable for the public prototype and can live inside your Zigs Development project hub at:
+
+```text
+projects/orgasmaphoria/
+```
+
+The secure production member platform should use a backend and private storage rather than relying on static hosting alone.

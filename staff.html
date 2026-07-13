@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Orgasmaphoria staff content publishing and support portal demonstration.">
+  <meta name="theme-color" content="#09070d">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Staff Portal | Orgasmaphoria">
+  <meta property="og:description" content="Orgasmaphoria staff content publishing and support portal demonstration.">
+  <meta property="og:image" content="assets/images/orgasmaphoria-og.jpg">
+  <meta property="og:site_name" content="Orgasmaphoria">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Staff Portal | Orgasmaphoria</title>
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <script defer src="assets/js/data.js"></script>
+  <script defer src="assets/js/app.js"></script>
+  <script defer src="assets/js/pages.js"></script>
+</head>
+<body data-page="staff" class="">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header data-site-header></header>
+  <main id="main">
+<section class="page-hero"><div class="page-hero__inner"><div><p class="eyebrow">Restricted staff demonstration</p><h1>Staff portal.</h1><p class="lede">Publish and organize member content, review contact submissions, monitor reports, and manage access levels.</p></div><div class="page-hero__mark"><img src="assets/images/logo.webp" width="735" height="760" alt=""></div></div></section>
+<section class="section section--tight"><div class="wrap"><div class="demo-banner">This staff portal uses front-end role checks and local browser storage. It is not secure enough for real private files, staff records, or member data.</div><div class="staff-overview"><article class="stat-card"><strong>5</strong><span>Included sample documents</span></article><article class="stat-card"><strong>4</strong><span>Access levels</span></article><article class="stat-card"><strong data-report-count>0</strong><span>Local test reports</span></article><article class="stat-card"><strong>25 MB</strong><span>Local demo file limit</span></article></div></div></section>
+<section class="section section--surface"><div class="wrap staff-layout"><section class="panel"><p class="eyebrow">Content publishing</p><h2>Upload a resource.</h2><p>Use descriptive titles, summaries, tags, access levels, and status. The file is stored only in this browser through IndexedDB.</p><form class="stack-form" data-staff-upload-form><div class="form-grid"><label class="field"><span>Title</span><input name="title" required maxlength="120"></label><label class="field"><span>Subtitle</span><input name="subtitle" maxlength="140"></label><label class="field"><span>Content type</span><select name="type" required><option>Book</option><option>Game</option><option>Activity</option><option>Invitation</option><option>Workbook</option><option>Document</option><option>Staff document</option></select></label><label class="field"><span>Access level</span><select name="access" required><option value="listener">All signed-in members</option><option value="inner">Inner Circle</option><option value="patron">Velvet Patron</option><option value="staff">Staff only</option></select></label><label class="field"><span>Status</span><select name="status"><option value="published">Published</option><option value="draft">Draft</option><option value="archived">Archived</option></select></label><label class="field"><span>Tags</span><input name="tags" placeholder="book, activity, event"></label><label class="field field--full"><span>Description</span><textarea name="description" required maxlength="1000"></textarea></label><label class="field field--full"><span>File</span><input type="file" name="file" required accept=".pdf,.txt,.docx,.epub,.png,.jpg,.jpeg"></label></div><button class="button button--primary" type="submit">Store and publish locally</button><p class="form-status" data-upload-status hidden aria-live="polite"></p></form></section><aside class="panel"><p class="eyebrow">Upload checklist</p><h2>Before publishing.</h2><ul class="check-list"><li>Confirm the creator has permission to publish the file.</li><li>Remove private drafts and personal information.</li><li>Use a safe file name and clear title.</li><li>Choose the least-public access level required.</li><li>Test the download with a matching member account.</li><li>Archive outdated versions instead of overwriting records silently.</li></ul><a class="button button--ghost" href="guide.html#staff-uploads">Open staff upload guide</a></aside></div></section>
+<section class="section"><div class="wrap"><div class="panel-heading"><div><p class="eyebrow">Content inventory</p><h2>Published and local resources.</h2></div></div><div class="panel table-wrap"><table class="data-table"><thead><tr><th>Resource</th><th>Type</th><th>Access</th><th>Storage</th><th>Action</th></tr></thead><tbody data-content-table></tbody></table></div></div></section>
+<section class="section section--surface"><div class="wrap"><div class="panel-heading"><div><p class="eyebrow">Contact inbox</p><h2>Test inquiries.</h2></div><button class="button button--ghost" type="button" data-clear-inbox>Clear demo inbox</button></div><div class="inbox-list" data-contact-inbox></div></div></section>
+</main>
+  <footer data-site-footer></footer>
+  <noscript><div class="demo-banner wrap">JavaScript is required for the interactive member portal demonstration.</div></noscript>
+</body>
+</html>

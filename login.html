@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sign in or create a demonstration Orgasmaphoria member account.">
+  <meta name="theme-color" content="#09070d">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sign In | Orgasmaphoria">
+  <meta property="og:description" content="Sign in or create a demonstration Orgasmaphoria member account.">
+  <meta property="og:image" content="assets/images/orgasmaphoria-og.jpg">
+  <meta property="og:site_name" content="Orgasmaphoria">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Sign In | Orgasmaphoria</title>
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <script defer src="assets/js/data.js"></script>
+  <script defer src="assets/js/app.js"></script>
+  <script defer src="assets/js/pages.js"></script>
+</head>
+<body data-page="login" class="">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header data-site-header></header>
+  <main id="main">
+<section class="auth-shell"><div class="auth-visual"><img src="assets/images/logo.webp" width="735" height="760" alt="Orgasmaphoria emblem"></div><div class="auth-main"><p class="eyebrow">Member access</p><h1 style="font-size:clamp(3.2rem,7vw,6rem)">Your account.</h1><p>Use a one-click sample account to test the full portal, or create a local demonstration account stored only in this browser.</p><div class="demo-banner">This is not production authentication. Do not reuse a real password.</div><div class="auth-tabs" role="tablist"><button type="button" class="is-active" data-auth-tab="signin" role="tab" aria-selected="true">Sign in</button><button type="button" data-auth-tab="register" role="tab" aria-selected="false">Create account</button></div><section data-auth-panel="signin"><div class="demo-account-grid"><button class="demo-account" type="button" data-demo-login="demo-member"><strong>Inner Circle</strong><small>Morgan Rose</small></button><button class="demo-account" type="button" data-demo-login="demo-patron"><strong>Velvet Patron</strong><small>Alex Rowan</small></button><button class="demo-account" type="button" data-demo-login="demo-staff"><strong>Staff</strong><small>Studio Admin</small></button></div><div class="divider">or use a local account</div><form class="stack-form" data-sign-in-form><label class="field"><span>Email or username</span><input name="identity" autocomplete="username" required></label><label class="field"><span>Password</span><input type="password" name="password" autocomplete="current-password" required></label><button class="button button--primary" type="submit">Sign in</button><p class="form-status" data-sign-in-status hidden aria-live="polite"></p></form></section><section data-auth-panel="register" hidden><form class="stack-form" data-register-form><div class="form-grid"><label class="field"><span>Display name</span><input name="displayName" autocomplete="name" required maxlength="60"></label><label class="field"><span>Username</span><input name="username" autocomplete="username" required pattern="[A-Za-z0-9_.-]{3,30}" title="3 to 30 letters, numbers, periods, underscores, or hyphens"></label><label class="field field--full"><span>Email</span><input type="email" name="email" autocomplete="email" required></label><label class="field"><span>Password</span><input type="password" name="password" autocomplete="new-password" required minlength="10"></label><label class="field"><span>Confirm password</span><input type="password" name="confirmPassword" autocomplete="new-password" required minlength="10"></label></div><p class="form-note">Use at least 10 characters, one capital letter, and one number. This prototype stores a password hash locally, but it is not a secure production account system.</p><label class="check-row"><input type="checkbox" name="adult" required><span>I confirm that I am 18 or older.</span></label><label class="check-row"><input type="checkbox" name="terms" required><span>I agree to the <a class="text-link" href="terms.html">Terms</a> and acknowledge the <a class="text-link" href="privacy.html">Privacy Notice</a>.</span></label><button class="button button--primary" type="submit">Create local demo account</button><p class="form-status" data-register-status hidden aria-live="polite"></p></form></section><p class="form-note" style="margin-top:1.4rem">Need help? Read the <a class="text-link" href="guide.html#accounts">account guide</a> or use the <a class="text-link" href="contact.html">contact form</a>.</p></div></section>
+</main>
+  <footer data-site-footer></footer>
+  <noscript><div class="demo-banner wrap">JavaScript is required for the interactive member portal demonstration.</div></noscript>
+</body>
+</html>

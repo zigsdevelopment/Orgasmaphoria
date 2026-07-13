@@ -1,70 +1,78 @@
-# Free Hosting and Project Hub Guide
+# Hosting and Zigs Development Hub Guide
 
-## Best fit: GitHub Pages
+## Best setup for testing
 
-For a collection of static test websites, use one GitHub repository named:
+Use your Zigs Development GitHub Pages repository as the central hub, then place each static project in its own folder.
 
-```text
-YOUR-USERNAME.github.io
-```
-
-That repository becomes the main hub at:
+Example:
 
 ```text
-https://YOUR-USERNAME.github.io/
-```
-
-Place each test website in its own folder:
-
-```text
-YOUR-USERNAME.github.io/
+zigsdevelopment.github.io/
 ├── index.html
-├── styles.css
-└── projects/
-    ├── orgasmaphoria/
-    │   ├── index.html
-    │   ├── styles.css
-    │   └── assets/
-    ├── another-project/
-    └── future-client-site/
+├── projects/
+│   ├── orgasmaphoria/
+│   │   ├── index.html
+│   │   ├── music.html
+│   │   ├── community.html
+│   │   ├── assets/
+│   │   └── ...
+│   ├── woodmill-pond/
+│   └── another-project/
 ```
 
-The Orgasmaphoria preview would then be available at:
+The Orgasmaphoria test address becomes:
 
 ```text
-https://YOUR-USERNAME.github.io/projects/orgasmaphoria/
+https://YOUR-GITHUB-USERNAME.github.io/projects/orgasmaphoria/
 ```
 
-A ready-made hub using this exact structure is included separately as `Website-Project-Hub.zip`.
+## GitHub Pages steps
 
-## GitHub Pages setup
+1. Open the repository used for the Zigs Development website.
+2. Create `projects/orgasmaphoria/`.
+3. Copy everything inside this `orgasmaphoria-site` folder into it.
+4. Commit and push the files.
+5. Open the repository’s Pages settings and publish from the branch containing the hub.
+6. Wait for the deployment, then open the project path.
 
-1. Create or sign into a GitHub account.
-2. Create a public repository named `YOUR-USERNAME.github.io`.
-3. Extract `Website-Project-Hub.zip`.
-4. Upload all extracted files to the repository root.
-5. Open the repository's **Settings**.
-6. Open **Pages**.
-7. Under **Build and deployment**, select **Deploy from a branch**.
-8. Select the `main` branch and `/ (root)` folder.
-9. Save and wait for the published address to appear.
+## Drag-and-drop testing
 
-## Updating a project
+A static host that accepts folder uploads can publish this package quickly. Upload the `orgasmaphoria-site` folder, not the outer ZIP directory.
 
-Replace the files inside that project's folder and commit the changes. GitHub Pages republishes the site automatically.
+## What static hosting can test
 
-## Easiest one-off preview: Netlify Drop
+- Responsive design
+- Navigation
+- Spotify embed
+- Age entrance
+- Local demo accounts
+- Member access previews
+- Local messages
+- Privacy and accessibility settings
+- Store bag
+- Sample document downloads
+- Local staff upload demonstration
 
-For a quick temporary preview without setting up Git first:
+## What static hosting cannot securely provide
 
-1. Extract the Orgasmaphoria ZIP.
-2. Sign into Netlify.
-3. Open the manual deploy / drag-and-drop area.
-4. Drag the entire website folder into the page.
-5. Netlify creates a temporary `.netlify.app` address.
+- Real private documents
+- Real authentication
+- Real staff permissions
+- Real member messaging
+- Real memberships or payments
+- Protected purchased downloads
+- Secure contact delivery
 
-Use GitHub Pages as the permanent test hub and Netlify when you need to show someone a very fast one-off preview.
+Do not treat interface locks as security. A static host sends files directly to the browser and cannot enforce private access by itself.
 
-## Important privacy note
+## Production path
 
-Anything published through a normal public GitHub Pages site can be viewed by anyone who has the address. Do not upload passwords, private client records, personal documents, API keys, secret tokens, or private source material.
+Keep the public site on a fast static or edge host and connect it to:
+
+- Authentication and PostgreSQL database
+- Private object storage
+- Hosted checkout and subscription management
+- Transactional email
+- Server-side contact and moderation tools
+
+Use `docs/BACKEND-ROADMAP.md` and `backend/schema.sql` as a starting plan.

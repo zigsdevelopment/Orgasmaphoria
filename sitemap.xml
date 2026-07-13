@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Replace YOUR-DOMAIN.example before launch. -->
   <url><loc>https://YOUR-DOMAIN.example/</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/music.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/community.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/library.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/events.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/store.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/contact.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/guide.html</loc></url>
   <url><loc>https://YOUR-DOMAIN.example/press-kit.html</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/accessibility.html</loc></url>
   <url><loc>https://YOUR-DOMAIN.example/privacy.html</loc></url>
   <url><loc>https://YOUR-DOMAIN.example/terms.html</loc></url>
 </urlset>
