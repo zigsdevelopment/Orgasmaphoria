@@ -1,37 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Browse Orgasmaphoria member books, games, activities, invitations, and documents.">
-  <meta name="theme-color" content="#09070d">
-  <meta name="color-scheme" content="dark">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Member Library | Orgasmaphoria">
-  <meta property="og:description" content="Browse Orgasmaphoria member books, games, activities, invitations, and documents.">
-  <meta property="og:image" content="assets/images/orgasmaphoria-og.jpg">
-  <meta property="og:site_name" content="Orgasmaphoria">
-  <meta name="twitter:card" content="summary_large_image">
-  <title>Member Library | Orgasmaphoria</title>
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  
-  <script defer src="assets/js/data.js"></script>
-  <script defer src="assets/js/app.js"></script>
-  <script defer src="assets/js/pages.js"></script>
-</head>
-<body data-page="library" class="">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header data-site-header></header>
-  <main id="main">
-<section class="page-hero"><div class="page-hero__inner"><div><p class="eyebrow">Books, games, activities, invites, and files</p><h1>Member library.</h1><p class="lede">A searchable collection of downloadable and viewable resources with clear access labels for all members, Inner Circle, Velvet Patron, and staff.</p></div><div class="page-hero__mark"><img src="assets/images/logo.webp" width="735" height="760" alt=""></div></div></section>
-<section class="section"><div class="wrap"><div class="demo-banner">The included PDFs are original sample content for testing. Staff can upload additional local demo files through the Staff Portal.</div><div class="filter-bar"><label class="field"><span>Search library</span><input type="search" data-library-search placeholder="Search titles, descriptions, or tags"></label><label class="field"><span>Content type</span><select data-library-type><option value="">All types</option><option>Game</option><option>Activity</option><option>Workbook</option><option>Invitation</option><option>Staff document</option><option>Book</option><option>Document</option></select></label><label class="field"><span>Access</span><select data-library-access><option value="">All access levels</option><option value="listener">All members</option><option value="inner">Inner Circle</option><option value="patron">Velvet Patron</option><option value="staff">Staff only</option></select></label><button class="button button--ghost" type="button" data-library-clear>Clear</button></div><div class="filter-count"><span data-library-count>0 resources</span><a href="guide.html#library">How library access works →</a></div><div class="library-grid" data-library-grid></div></div></section>
-</main>
+  <!doctype html>
+  <html lang="en" data-theme="midnight">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Access Orgasmaphoria member resources and separately purchased digital products.">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#09070d">
+    <meta name="color-scheme" content="dark">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Library | Orgasmaphoria">
+    <meta property="og:description" content="Access Orgasmaphoria member resources and separately purchased digital products.">
+    <meta property="og:image" content="assets/images/orgasmaphoria-og.jpg">
+    <meta property="og:site_name" content="Orgasmaphoria">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Library | Orgasmaphoria</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="assets/js/config.js"></script>
+    <script defer src="assets/js/data.js"></script>
+    <script defer src="assets/js/app.js"></script>
+<script defer src="assets/js/auth.js"></script>
+<script defer src="assets/js/community.js"></script>
+  </head>
+  <body data-page="library">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header data-site-header></header>
+<main id="main"><section class="page-hero page-hero--member"><div class="page-hero__inner"><div><p class="eyebrow">Member and purchase access</p><h1>Your library.</h1><p class="lede">Books, guides, games, activities, invitations, and private documents available to your account.</p></div><div class="page-hero__mark"><img src="assets/images/logo.webp" width="735" height="760" alt=""></div></div></section><section class="section"><div class="wrap"><div class="filter-bar"><label><span>Search resources</span><input type="search" data-library-search placeholder="Search titles, descriptions, or tags"></label><label><span>Type</span><select data-library-type><option value="">All types</option><option value="Book">Books</option><option value="Guide">Guides</option><option value="Game">Games</option><option value="Activity">Activities</option><option value="Invitation">Invitations</option><option value="Document">Documents</option></select></label><div class="filter-count" data-library-count>0 resources</div></div><div class="library-grid" data-library-grid></div></div></section></main>
   <footer data-site-footer></footer>
-  <noscript><div class="demo-banner wrap">JavaScript is required for the interactive member portal demonstration.</div></noscript>
 </body>
 </html>

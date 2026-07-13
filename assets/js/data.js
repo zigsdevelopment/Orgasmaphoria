@@ -1,320 +1,117 @@
-window.ORG_DATA = {
+window.ORG_CONTENT = Object.freeze({
   site: {
     name: "Orgasmaphoria",
-    tagline: "Music, mystery, connection.",
-    spotifyArtist: "https://open.spotify.com/artist/7JPxqyyzIP3N4YChFOtFvC?si=XERgnpYLQGC4KQZBFIPNdQ",
-    spotifyEmbed: "https://open.spotify.com/embed/artist/7JPxqyyzIP3N4YChFOtFvC?utm_source=generator&si=acb54b5af26f4f12",
-    contactEmail: "",
-    formEndpoint: "",
-    supportHours: "Messages are reviewed during normal business hours.",
-    matureNotice: "This community is intended for adults 18 and older."
+    tagline: "Music · Mystery · Connection",
+    spotifyUrl: "https://open.spotify.com/artist/7JPxqyyzIP3N4YChFOtFvC?si=XERgnpYLQGC4KQZBFIPNdQ",
+    spotifyEmbed: "https://open.spotify.com/embed/artist/7JPxqyyzIP3N4YChFOtFvC?utm_source=generator&si=acb54b5af26f4f12"
   },
-  tiers: [
+  memberships: [
     {
-      id: "listener",
+      slug: "listener",
       name: "Listener",
+      eyebrow: "Free account",
+      price: 0,
+      interval: "",
       level: 1,
-      price: "Free",
-      description: "A simple account for public releases, saved items, event news, and community updates.",
-      features: ["Save music and public resources", "Follow public events", "Create a community profile", "Member directory access"]
+      description: "Save public releases, build a profile, receive event news, and enter the member community.",
+      features: ["Personal account and dashboard", "Public resource library", "Member directory access", "Privacy and accessibility controls"],
+      cta: "Create a free account"
     },
     {
-      id: "inner",
-      name: "Inner Circle",
-      level: 2,
-      price: "Pricing set at launch",
-      description: "Expanded access to member documents, private listening rooms, activities, and discussions.",
-      features: ["Everything in Listener", "Member-only library", "Private invitations", "Direct member messaging", "Early access previews"]
-    },
-    {
-      id: "patron",
+      slug: "velvet-patron",
       name: "Velvet Patron",
+      eyebrow: "Expanded membership",
+      price: 9,
+      interval: "month",
+      level: 2,
+      description: "Unlock member books, guides, games, activities, invitations, and private community experiences.",
+      features: ["Everything in Listener", "Velvet Patron library", "Private invitations and events", "Member messaging", "Early access selections"],
+      cta: "Choose Velvet Patron"
+    },
+    {
+      slug: "inner-circle",
+      name: "Inner Circle",
+      eyebrow: "Highest membership",
+      price: 19,
+      interval: "month",
       level: 3,
-      price: "Pricing set at launch",
-      description: "The highest member tier for collectors, supporters, and the most complete community access.",
-      features: ["Everything in Inner Circle", "Patron-only releases", "Collector downloads", "Priority event access", "Supporter recognition controls"]
-    }
-  ],
-  users: [
-    {
-      id: "demo-member",
-      username: "morganrose",
-      displayName: "Morgan Rose",
-      initials: "MR",
-      tier: "inner",
-      role: "member",
-      city: "Tampa, FL",
-      joined: "May 2026",
-      bio: "Music listener, reader, and fan of thoughtful conversation. I am usually building a playlist or planning my next book night.",
-      interests: ["Music", "Books", "Listening salons", "Creative writing"],
-      online: true,
-      profileVisibility: "members",
-      allowMessages: "members"
-    },
-    {
-      id: "demo-patron",
-      username: "velvetatlas",
-      displayName: "Alex Rowan",
-      initials: "AR",
-      tier: "patron",
-      role: "member",
-      city: "Savannah, GA",
-      joined: "March 2026",
-      bio: "Collector of atmospheric music and visual art. Interested in community events, creative projects, and long-form interviews.",
-      interests: ["Art", "Interviews", "Collector releases", "Events"],
-      online: false,
-      profileVisibility: "members",
-      allowMessages: "members"
-    },
-    {
-      id: "demo-staff",
-      username: "studioadmin",
-      displayName: "Studio Admin",
-      initials: "SA",
-      tier: "staff",
-      role: "staff",
-      city: "Orgasmaphoria Studio",
-      joined: "January 2026",
-      bio: "Official staff account used for community support, content publishing, and event coordination.",
-      interests: ["Community support", "Publishing", "Events"],
-      online: true,
-      profileVisibility: "members",
-      allowMessages: "members"
-    },
-    {
-      id: "u-avery",
-      username: "nocturnenotes",
-      displayName: "Avery Lane",
-      initials: "AL",
-      tier: "listener",
-      role: "member",
-      city: "Atlanta, GA",
-      joined: "June 2026",
-      bio: "Late-night listener and amateur pianist. Here for new music and thoughtful community discussions.",
-      interests: ["Piano", "New releases", "Discussion"],
-      online: true,
-      profileVisibility: "members",
-      allowMessages: "members"
-    },
-    {
-      id: "u-riley",
-      username: "paperlantern",
-      displayName: "Riley Quinn",
-      initials: "RQ",
-      tier: "inner",
-      role: "member",
-      city: "Charlotte, NC",
-      joined: "April 2026",
-      bio: "Book club host, journal collector, and believer in clear communication.",
-      interests: ["Books", "Journaling", "Hosting"],
-      online: false,
-      profileVisibility: "members",
-      allowMessages: "members"
-    },
-    {
-      id: "u-cameron",
-      username: "violethour",
-      displayName: "Cameron Vale",
-      initials: "CV",
-      tier: "patron",
-      role: "member",
-      city: "Richmond, VA",
-      joined: "February 2026",
-      bio: "Photographer and event enthusiast. I enjoy artist interviews and behind-the-scenes production notes.",
-      interests: ["Photography", "Events", "Production"],
-      online: true,
-      profileVisibility: "members",
-      allowMessages: "members"
-    },
-    {
-      id: "u-jordan",
-      username: "softstatic",
-      displayName: "Jordan Ellis",
-      initials: "JE",
-      tier: "inner",
-      role: "member",
-      city: "Nashville, TN",
-      joined: "May 2026",
-      bio: "Sound design student and playlist maker. Always interested in how atmosphere changes a story.",
-      interests: ["Sound design", "Playlists", "Storytelling"],
-      online: false,
-      profileVisibility: "members",
-      allowMessages: "nobody"
-    }
-  ],
-  library: [
-    {
-      id: "lib-cards",
-      title: "Signals & Stories",
-      subtitle: "Printable conversation card game",
-      description: "Twelve thoughtful prompts for adult groups, book nights, listening salons, and creative gatherings.",
-      type: "Game",
-      format: "PDF",
-      access: "inner",
-      accessLabel: "Inner Circle",
-      file: "documents/signals-and-stories-card-game.pdf",
-      tags: ["conversation", "printable", "activity"],
       featured: true,
-      added: "2026-07-10"
-    },
-    {
-      id: "lib-salon",
-      title: "The Listening Salon",
-      subtitle: "Host guide and activity plan",
-      description: "A practical guide for creating a respectful, accessible, music-centered gathering.",
-      type: "Activity",
-      format: "PDF",
-      access: "listener",
-      accessLabel: "All members",
-      file: "documents/listening-salon-host-guide.pdf",
-      tags: ["hosting", "music", "events"],
-      featured: true,
-      added: "2026-07-11"
-    },
-    {
-      id: "lib-journal",
-      title: "Midnight Pages",
-      subtitle: "Reflection workbook sample",
-      description: "A calm, printable journal with prompts on creativity, communication, atmosphere, and personal direction.",
-      type: "Workbook",
-      format: "PDF",
-      access: "inner",
-      accessLabel: "Inner Circle",
-      file: "documents/midnight-pages-journal-sample.pdf",
-      tags: ["journal", "writing", "reflection"],
-      featured: false,
-      added: "2026-07-12"
-    },
-    {
-      id: "lib-invite",
-      title: "After Dark Listening Salon",
-      subtitle: "Sample member invitation",
-      description: "A downloadable invitation for the sample private listening event shown on the Events page.",
-      type: "Invitation",
-      format: "PDF",
-      access: "inner",
-      accessLabel: "Inner Circle",
-      file: "documents/after-dark-listening-salon-invite.pdf",
-      tags: ["invite", "event", "listening"],
-      featured: false,
-      added: "2026-07-12"
-    },
-    {
-      id: "lib-staff",
-      title: "Release & Publishing Checklist",
-      subtitle: "Internal operations template",
-      description: "A sample staff checklist covering content, website, community, and privacy review before publishing.",
-      type: "Staff document",
-      format: "PDF",
-      access: "staff",
-      accessLabel: "Staff only",
-      file: "documents/staff-release-checklist.pdf",
-      tags: ["staff", "publishing", "operations"],
-      featured: false,
-      added: "2026-07-12"
-    }
-  ],
-  events: [
-    {
-      id: "event-salon",
-      title: "After Dark Listening Salon",
-      date: "2026-10-17",
-      time: "8:00 PM - 10:00 PM ET",
-      location: "Private online room",
-      access: "inner",
-      accessLabel: "Inner Circle and Patron",
-      description: "A guided listening session with artist notes, quiet reflection, moderated discussion, and a closing Q&A.",
-      capacity: 60,
-      attending: 34,
-      invite: "documents/after-dark-listening-salon-invite.pdf",
-      calendar: "invites/after-dark-listening-salon.ics"
-    },
-    {
-      id: "event-studio",
-      title: "Behind the Song: Studio Notes",
-      date: "2026-11-05",
-      time: "7:30 PM - 8:30 PM ET",
-      location: "Member livestream",
-      access: "listener",
-      accessLabel: "All members",
-      description: "A public-to-members discussion about songwriting choices, atmosphere, and building a release from idea to final mix.",
-      capacity: 150,
-      attending: 78,
-      invite: "",
-      calendar: "invites/behind-the-song.ics"
-    },
-    {
-      id: "event-circle",
-      title: "Midnight Pages Book Circle",
-      date: "2026-11-21",
-      time: "8:00 PM - 9:15 PM ET",
-      location: "Private community room",
-      access: "patron",
-      accessLabel: "Velvet Patron",
-      description: "A smaller discussion gathering centered on a selected romantic suspense title and its use of voice, trust, and mystery.",
-      capacity: 24,
-      attending: 12,
-      invite: "",
-      calendar: "invites/midnight-pages-book-circle.ics"
+      description: "The complete Orgasmaphoria experience for collectors, supporters, and the closest members of the world.",
+      features: ["Everything in Velvet Patron", "Complete member library", "Inner Circle exclusives", "Priority event access", "Collector releases and recognition controls"],
+      cta: "Join the Inner Circle"
     }
   ],
   products: [
     {
-      id: "prod-cards",
-      title: "Signals & Stories Card Game",
-      category: "Digital game",
-      description: "A printable expanded edition with 48 prompts and four themed conversation sets.",
-      price: 7,
-      format: "PDF download",
-      accessNote: "Separate purchase. Membership not required.",
-      demo: true
-    },
-    {
-      id: "prod-anthology",
-      title: "Midnight Pages Digital Anthology",
+      slug: "midnight-pages",
       category: "Digital book",
-      description: "A sample listing for a future collection of short essays, reflections, and creative prompts.",
+      title: "Midnight Pages",
+      subtitle: "A guided reflection journal",
+      price: 9,
+      glyph: "M",
+      description: "A downloadable journal built around music, atmosphere, imagination, communication, and personal reflection.",
+      includes: ["Printable PDF edition", "Digital reading edition", "Writing prompts", "Lifetime access"]
+    },
+    {
+      slug: "signals-and-stories",
+      category: "Printable game",
+      title: "Signals & Stories",
+      subtitle: "Conversation card collection",
       price: 12,
-      format: "EPUB and PDF",
-      accessNote: "Separate purchase with member discount support.",
-      demo: true
+      glyph: "S",
+      description: "A printable card experience for thoughtful conversations, listening nights, book circles, and small gatherings.",
+      includes: ["Full card deck", "Host instructions", "Multiple play formats", "Personal-use print license"]
     },
     {
-      id: "prod-salon",
-      title: "Listening Salon Event Pass",
-      category: "Event access",
-      description: "A one-time ticket listing for events that are sold separately from recurring memberships.",
+      slug: "listening-salon",
+      category: "Host guide",
+      title: "The Listening Salon",
+      subtitle: "A complete gathering guide",
+      price: 14,
+      glyph: "L",
+      description: "A practical guide for planning an elegant, respectful, music-centered evening with clear expectations and accessible participation.",
+      includes: ["Planning checklist", "Invitation wording", "Discussion prompts", "Accessibility checklist"]
+    },
+    {
+      slug: "after-dark-invite-kit",
+      category: "Design kit",
+      title: "After Dark Invitation Kit",
+      subtitle: "Editable digital invitations",
+      price: 8,
+      glyph: "A",
+      description: "A coordinated set of digital invitation designs for private listening nights, launches, and themed gatherings.",
+      includes: ["Digital invitation layouts", "Mobile story format", "Printable format", "Editing notes"]
+    },
+    {
+      slug: "rituals-of-connection",
+      category: "Activity guide",
+      title: "Rituals of Connection",
+      subtitle: "Creative activities for two or a group",
       price: 15,
-      format: "Digital ticket",
-      accessNote: "One-time purchase. Event eligibility still applies.",
-      demo: true
+      glyph: "R",
+      description: "A collection of non-explicit, communication-centered activities inspired by music, memory, storytelling, and trust.",
+      includes: ["Twenty guided activities", "Solo and group formats", "Facilitator notes", "Printable worksheets"]
     },
     {
-      id: "prod-bundle",
-      title: "Velvet Collector Digital Bundle",
-      category: "Bundle",
-      description: "A sample bundle for music, artwork, a digital booklet, and bonus commentary files.",
-      price: 24,
-      format: "ZIP download",
-      accessNote: "Separate purchase with patron pricing support.",
-      demo: true
+      slug: "collectors-library-one",
+      category: "Collector bundle",
+      title: "Collector's Library · Volume I",
+      subtitle: "Books, games, guides, and artwork",
+      price: 39,
+      glyph: "I",
+      featured: true,
+      description: "A coordinated digital collection bringing the first Orgasmaphoria books, activities, visual materials, and bonus notes together.",
+      includes: ["Five digital releases", "Collector artwork", "Bonus commentary", "Future revision access"]
     }
   ],
-  conversations: [
-    {
-      id: "conv-1",
-      participants: ["demo-member", "u-riley"],
-      messages: [
-        { id: "m1", sender: "u-riley", text: "Hi Morgan. Are you planning to attend the listening salon?", sentAt: "2026-07-11T18:14:00Z" },
-        { id: "m2", sender: "demo-member", text: "Yes, I saved it. I am especially interested in the discussion format.", sentAt: "2026-07-11T18:22:00Z" }
-      ]
-    },
-    {
-      id: "conv-2",
-      participants: ["demo-member", "demo-staff"],
-      messages: [
-        { id: "m3", sender: "demo-staff", text: "Welcome to the Inner Circle demo. Your member library is ready to explore.", sentAt: "2026-07-10T15:05:00Z" }
-      ]
-    }
+  permissions: [
+    { key: "manage_accounts", label: "Manage accounts and approvals" },
+    { key: "manage_permissions", label: "Manage roles and permissions" },
+    { key: "manage_content", label: "Manage resources and files" },
+    { key: "manage_products", label: "Manage products and memberships" },
+    { key: "manage_events", label: "Manage events and invitations" },
+    { key: "manage_messages", label: "Review reports and moderation" },
+    { key: "view_orders", label: "View orders and subscriptions" },
+    { key: "view_audit", label: "View security and audit records" }
   ]
-};
+});

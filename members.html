@@ -1,37 +1,36 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Browse fictional demonstration member profiles and shared interests.">
-  <meta name="theme-color" content="#09070d">
-  <meta name="color-scheme" content="dark">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Member Directory | Orgasmaphoria">
-  <meta property="og:description" content="Browse fictional demonstration member profiles and shared interests.">
-  <meta property="og:image" content="assets/images/orgasmaphoria-og.jpg">
-  <meta property="og:site_name" content="Orgasmaphoria">
-  <meta name="twitter:card" content="summary_large_image">
-  <title>Member Directory | Orgasmaphoria</title>
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  
-  <script defer src="assets/js/data.js"></script>
-  <script defer src="assets/js/app.js"></script>
-  <script defer src="assets/js/pages.js"></script>
-</head>
-<body data-page="members" class="">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header data-site-header></header>
-  <main id="main">
-<section class="page-hero"><div class="page-hero__inner"><div><p class="eyebrow">Private member area</p><h1>Community directory.</h1><p class="lede">Discover members by name or shared interests. Each person controls profile visibility, visible fields, online status, and whether direct messages are allowed.</p></div><div class="page-hero__mark"><img src="assets/images/logo.webp" width="735" height="760" alt=""></div></div></section>
-<section class="section"><div class="wrap"><div class="demo-banner">All profiles shown here are fictional demonstration accounts.</div><div class="directory-controls"><label class="field"><span>Search members</span><input type="search" data-member-search placeholder="Name, username, biography, or interest"></label><label class="field"><span>Interest</span><select data-member-interest><option value="">All interests</option></select></label></div><div class="member-grid" data-member-grid></div></div></section>
-</main>
+  <!doctype html>
+  <html lang="en" data-theme="midnight">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Browse visible Orgasmaphoria member profiles and begin private conversations.">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#09070d">
+    <meta name="color-scheme" content="dark">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Members | Orgasmaphoria">
+    <meta property="og:description" content="Browse visible Orgasmaphoria member profiles and begin private conversations.">
+    <meta property="og:image" content="assets/images/orgasmaphoria-og.jpg">
+    <meta property="og:site_name" content="Orgasmaphoria">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Members | Orgasmaphoria</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="assets/js/config.js"></script>
+    <script defer src="assets/js/data.js"></script>
+    <script defer src="assets/js/app.js"></script>
+<script defer src="assets/js/auth.js"></script>
+<script defer src="assets/js/community.js"></script>
+  </head>
+  <body data-page="members">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header data-site-header></header>
+<main id="main"><section class="page-hero page-hero--member"><div class="page-hero__inner"><div><p class="eyebrow">Community directory</p><h1>Members.</h1><p class="lede">Discover visible profiles and start conversations only with members who have chosen to accept messages.</p></div><div class="page-hero__mark"><img src="assets/images/logo.webp" width="735" height="760" alt=""></div></div></section><section class="section"><div class="wrap"><div class="filter-bar filter-bar--simple"><label><span>Search members</span><input type="search" data-member-search placeholder="Search by name, username, biography, or interest"></label><a class="button button--ghost" href="account.html">My privacy settings</a></div><div class="member-grid" data-member-grid></div></div></section></main>
   <footer data-site-footer></footer>
-  <noscript><div class="demo-banner wrap">JavaScript is required for the interactive member portal demonstration.</div></noscript>
 </body>
 </html>

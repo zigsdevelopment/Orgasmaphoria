@@ -1,0 +1,36 @@
+  <!doctype html>
+  <html lang="en" data-theme="midnight">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Manage your Orgasmaphoria profile, privacy, messages, password, accessibility, and billing settings.">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#09070d">
+    <meta name="color-scheme" content="dark">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Account Settings | Orgasmaphoria">
+    <meta property="og:description" content="Manage your Orgasmaphoria profile, privacy, messages, password, accessibility, and billing settings.">
+    <meta property="og:image" content="assets/images/orgasmaphoria-og.jpg">
+    <meta property="og:site_name" content="Orgasmaphoria">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Account Settings | Orgasmaphoria</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="assets/js/config.js"></script>
+    <script defer src="assets/js/data.js"></script>
+    <script defer src="assets/js/app.js"></script>
+<script defer src="assets/js/auth.js"></script>
+<script defer src="assets/js/commerce.js"></script>
+  </head>
+  <body data-page="account">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header data-site-header></header>
+<main id="main"><section class="member-page-head"><div class="wrap"><p class="eyebrow">Personal controls</p><h1>Account settings.</h1><p>Manage your profile, member visibility, messages, accessibility, password, and billing.</p></div></section><section class="section"><div class="wrap settings-grid"><form class="form-card" data-profile-form><p class="eyebrow">Profile and privacy</p><h2>How members see you</h2><div class="form-grid"><label><span>Display name</span><input type="text" name="displayName" required maxlength="80"></label><label><span>Username</span><input type="text" name="username" required maxlength="30" pattern="[A-Za-z0-9_]+"></label><label class="form-grid__wide"><span>Biography</span><textarea name="bio" rows="5" maxlength="800"></textarea></label><label class="form-grid__wide"><span>Interests</span><input type="text" name="interests" maxlength="300" placeholder="Music, books, events"></label><label><span>Directory visibility</span><select name="directoryVisibility"><option value="members">Visible to signed-in members</option><option value="hidden">Hidden from the directory</option></select></label><label><span>Direct messages</span><select name="allowMessages"><option value="members">Allow from members</option><option value="nobody">Do not allow new messages</option></select></label></div><label class="check-row"><input type="checkbox" name="showOnline"><span>Allow members to see when I am online.</span></label><div class="form-status" data-profile-status hidden></div><button class="button button--primary" type="submit">Save profile and privacy</button></form><div class="settings-stack"><form class="form-card" data-password-form id="password"><p class="eyebrow">Security</p><h2>Change password</h2><label><span>New password</span><input type="password" name="password" autocomplete="new-password" required minlength="10"></label><label><span>Confirm password</span><input type="password" name="confirmPassword" autocomplete="new-password" required minlength="10"></label><div class="form-status" data-password-status hidden></div><button class="button button--primary" type="submit">Update password</button></form><section class="form-card"><p class="eyebrow">Membership and payments</p><h2>Billing</h2><p>Open the secure customer portal to update payment details, view invoices, or manage an active subscription.</p><button class="button button--ghost" type="button" data-billing-portal>Open billing portal</button></section><section class="form-card"><p class="eyebrow">Display</p><h2>Accessibility</h2><p>Use the floating <strong>Aa</strong> button to change text size, contrast, motion, link styling, reading font, spacing, and appearance.</p><a class="text-link" href="accessibility.html">Read the accessibility statement →</a></section><section class="form-card form-card--danger"><p class="eyebrow">Session</p><h2>Sign out</h2><button class="button button--ghost" type="button" data-sign-out>Sign out of this device</button></section></div></div></section></main>
+  <footer data-site-footer></footer>
+</body>
+</html>

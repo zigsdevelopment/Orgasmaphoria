@@ -1,7 +1,7 @@
 {
   "name": "Orgasmaphoria",
   "short_name": "Orgasmaphoria",
-  "description": "Music, mystery, and meaningful connection.",
+  "description": "Music, mystery, connection, membership, and digital collections.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#08060b",

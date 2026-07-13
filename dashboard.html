@@ -1,37 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Orgasmaphoria member dashboard for resources, events, messages, and account settings.">
-  <meta name="theme-color" content="#09070d">
-  <meta name="color-scheme" content="dark">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Dashboard | Orgasmaphoria">
-  <meta property="og:description" content="Orgasmaphoria member dashboard for resources, events, messages, and account settings.">
-  <meta property="og:image" content="assets/images/orgasmaphoria-og.jpg">
-  <meta property="og:site_name" content="Orgasmaphoria">
-  <meta name="twitter:card" content="summary_large_image">
-  <title>Dashboard | Orgasmaphoria</title>
-  <link rel="icon" href="assets/images/favicon.png" type="image/png">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  
-  <script defer src="assets/js/data.js"></script>
-  <script defer src="assets/js/app.js"></script>
-  <script defer src="assets/js/pages.js"></script>
-</head>
-<body data-page="dashboard" class="">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header data-site-header></header>
-  <main id="main">
-<section class="dashboard-hero"><div class="dashboard-hero__inner"><div class="dashboard-identity"><span class="profile-avatar profile-avatar--large" data-user-initials>O</span><div><p class="eyebrow"><span data-user-tier>Member</span> dashboard</p><h1>Welcome, <span data-user-name>member</span>.</h1></div></div><div class="button-row"><a class="button button--ghost" href="messages.html">Messages</a><a class="button button--primary" href="library.html">Open library</a></div></div></section>
-<section class="section section--tight"><div class="wrap dashboard-grid"><div class="dashboard-column"><section class="panel"><div class="panel-heading"><h2>Available now</h2><a class="text-link" href="library.html">All resources →</a></div><div class="dashboard-resources" data-dashboard-library></div></section><section class="panel"><div class="panel-heading"><h2>Saved resources</h2><a class="text-link" href="library.html">Browse →</a></div><div class="compact-list" data-dashboard-saved></div></section></div><aside class="dashboard-column"><section class="panel" data-dashboard-event></section><section class="panel"><div class="panel-heading"><h2>Profile</h2><strong data-profile-percent>0%</strong></div><div class="profile-progress" data-profile-progress></div><p>Complete your biography, location, interests, and privacy choices so your profile reflects how you want to participate.</p><a class="button button--ghost" href="settings.html#profile">Review profile</a></section><section class="panel"><p class="eyebrow">Quick access</p><div class="quick-links"><a href="members.html">Member directory</a><a href="messages.html">Direct messages</a><a href="events.html">Invitations</a><a href="settings.html">Privacy and access</a></div></section></aside></div></section>
+  <!doctype html>
+  <html lang="en" data-theme="midnight">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Orgasmaphoria personal dashboard for memberships, purchases, resources, messages, and account settings.">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#09070d">
+    <meta name="color-scheme" content="dark">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="My Dashboard | Orgasmaphoria">
+    <meta property="og:description" content="Orgasmaphoria personal dashboard for memberships, purchases, resources, messages, and account settings.">
+    <meta property="og:image" content="assets/images/orgasmaphoria-og.jpg">
+    <meta property="og:site_name" content="Orgasmaphoria">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>My Dashboard | Orgasmaphoria</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script defer src="assets/js/config.js"></script>
+    <script defer src="assets/js/data.js"></script>
+    <script defer src="assets/js/app.js"></script>
+<script defer src="assets/js/auth.js"></script>
+<script defer src="assets/js/commerce.js"></script>
+  </head>
+  <body data-page="dashboard">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header data-site-header></header>
+<main id="main">
+  <section class="dashboard-hero"><div class="wrap dashboard-hero__inner"><div class="avatar avatar--large" data-profile-initials>O</div><div><p class="eyebrow">Personal dashboard</p><h1>Welcome, <span data-profile-name>member</span>.</h1><p>Your memberships, purchases, resources, conversations, and settings in one place.</p></div><a class="button button--ghost" href="staff.html" data-staff-link hidden>Staff administration</a></div></section>
+  <section class="section section--tight"><div class="wrap dashboard-grid"><article class="dashboard-card dashboard-card--membership"><p class="eyebrow">Current access</p><h2 data-membership-name>Listener</h2><p data-membership-status>Free account</p><div class="button-row"><a class="button button--primary" href="store.html#memberships">Change membership</a><button class="button button--ghost" type="button" data-billing-portal data-membership-manage hidden>Manage billing</button></div></article><article class="dashboard-card"><p class="eyebrow">Your account</p><h2>Profile and privacy</h2><p>Control how you appear to members, who can message you, and how the site looks.</p><a class="text-link" href="account.html">Open account settings →</a></article></div></section>
+  <section class="section"><div class="wrap dashboard-columns"><div><div class="section-heading section-heading--small"><div><p class="eyebrow">Available now</p><h2>Your library</h2></div><a class="text-link" href="library.html">View all →</a></div><div class="compact-list" data-dashboard-resources></div></div><div><div class="section-heading section-heading--small"><div><p class="eyebrow">Purchase history</p><h2>Recent orders</h2></div><a class="text-link" href="store.html">Shop →</a></div><div class="compact-list" data-dashboard-orders></div></div></div></section>
+  <section class="section section--surface"><div class="wrap quick-link-grid"><a class="quick-link" href="library.html"><span>Library</span><strong>Open member and purchased resources</strong><i>→</i></a><a class="quick-link" href="members.html"><span>Members</span><strong>Discover community profiles</strong><i>→</i></a><a class="quick-link" href="messages.html"><span>Messages</span><strong>Continue private conversations</strong><i>→</i></a><a class="quick-link" href="account.html"><span>Settings</span><strong>Profile, privacy, accessibility, password</strong><i>→</i></a></div></section>
 </main>
   <footer data-site-footer></footer>
-  <noscript><div class="demo-banner wrap">JavaScript is required for the interactive member portal demonstration.</div></noscript>
 </body>
 </html>
