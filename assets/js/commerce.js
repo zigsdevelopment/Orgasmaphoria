@@ -3,21 +3,39 @@
   const A = () => window.ORG_APP;
   const qs = (selector, scope = document) => scope.querySelector(selector);
   const qsa = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+  let checkoutBusy = false;
 
   async function startCheckout(payload) {
-    if (!A().configured) {
-      A().toast("Checkout is temporarily unavailable.", "error");
-      return;
-    }
+    if (checkoutBusy) return;
     const session = await A().requireSession(location.href);
     if (!session) return;
+    checkoutBusy = true;
+    qsa("[data-cart-checkout], [data-buy-product], [data-membership-checkout]").forEach((button) => { button.disabled = true; });
     try {
-      const result = await A().invokeFunction(A().CONFIG.checkoutFunction || "create-checkout", payload);
-      if (!result?.url) throw new Error("Checkout could not be started.");
+      const response = await fetch(A().sitePath("api/checkout.php"), {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "X-CSRF-Token": session.csrfToken || ""
+        },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (response.status === 401 || result.loginRequired) {
+        location.href = `${A().sitePath("account/login.php")}?return=${encodeURIComponent(location.href)}`;
+        return;
+      }
+      if (!response.ok || !result.url) throw new Error(result.error || "Checkout could not be started.");
       location.href = result.url;
     } catch (error) {
       console.error(error);
-      A().toast("Checkout could not be started. Please try again.", "error");
+      A().toast(error.message || "Checkout could not be started. Please try again.", "error");
+    } finally {
+      checkoutBusy = false;
+      qsa("[data-cart-checkout], [data-buy-product], [data-membership-checkout]").forEach((button) => { button.disabled = false; });
+      renderCart();
     }
   }
 
@@ -44,7 +62,8 @@
       return value + (product ? product.price * entry.quantity : 0);
     }, 0);
     total.textContent = A().formatMoney(sum);
-    qs("[data-cart-checkout]")?.toggleAttribute("disabled", cart.length === 0);
+    const checkout = qs("[data-cart-checkout]");
+    if (checkout) checkout.disabled = checkoutBusy || cart.length === 0;
 
     qsa("[data-cart-remove]", list).forEach((button) => button.addEventListener("click", () => A().removeFromCart(button.dataset.cartRemove)));
     qsa("[data-cart-quantity]", list).forEach((input) => input.addEventListener("change", () => A().updateCart(input.dataset.cartQuantity, input.value)));
@@ -72,7 +91,7 @@
     qsa("[data-membership-checkout]").forEach((button) => button.addEventListener("click", async () => {
       const slug = button.dataset.membershipCheckout;
       if (slug === "listener") {
-        location.href = "auth.html#register";
+        location.href = A().sitePath("account/login.php?view=register#register");
         return;
       }
       await startCheckout({ kind: "membership", slug });
@@ -85,26 +104,8 @@
     document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeCart(); });
   }
 
-  async function initBillingPortal() {
-    qsa("[data-billing-portal]").forEach((button) => button.addEventListener("click", async () => {
-      const session = await A().requireSession(location.href);
-      if (!session) return;
-      try {
-        const result = await A().invokeFunction(A().CONFIG.portalFunction || "create-portal", {});
-        if (!result?.url) throw new Error("Portal unavailable");
-        location.href = result.url;
-      } catch (error) {
-        console.error(error);
-        A().toast("Billing settings are temporarily unavailable.", "error");
-      }
-    }));
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-      initCommerce();
-      initBillingPortal();
-      renderCart();
-    }, 0);
+    initCommerce();
+    renderCart();
   });
 })();

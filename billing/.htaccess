@@ -1,0 +1,4 @@
+Options -Indexes
+<FilesMatch "^(?!webhook\.php$).+">
+  Require all denied
+</FilesMatch>

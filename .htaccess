@@ -1,0 +1,32 @@
+Options -Indexes
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  RewriteRule ^login/?$ account/login.php [R=301,L]
+  RewriteRule ^register/?$ account/login.php?view=register [R=301,L]
+  RewriteRule ^account/?$ account/index.php [R=301,L]
+  RewriteRule ^dashboard/?$ account/index.php [R=301,L]
+  RewriteRule ^library/?$ account/library.php [R=301,L]
+  RewriteRule ^members/?$ account/members.php [R=301,L]
+  RewriteRule ^messages/?$ account/messages.php [R=301,L]
+  RewriteRule ^contact/?$ contact.php [R=301,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+  Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains" env=HTTPS
+</IfModule>
+
+<FilesMatch "(^\.|\.(?:json|lock|log|key|sql|ini|env|bak)$)">
+  Require all denied
+</FilesMatch>

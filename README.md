@@ -1,304 +1,192 @@
-# Orgasmaphoria Production Website V4
+# Orgasmaphoria Production Website — V5
 
-This is the public multi-page website plus the production account, membership, payment, private-library, member-directory, messaging, and staff-permission codebase.
+This release is the publishable multi-page Orgasmaphoria website with a working PHP account system, contact inbox, member library, direct messaging, memberships, permissions, staff controls, optional two-factor authentication, and Stripe Checkout integration.
 
-The public pages can be uploaded immediately. Secure accounts and payments become active only after Supabase and Stripe are configured. No demo accounts, fictional users, browser-only permissions, electronic press kit, or public administrator guide is included.
+The public website does not show developer instructions, test accounts, setup notices, fake messages, or prototype controls. Administration and deployment notes are kept only in this README.
 
-## Main changes in this release
+## What changed in V5
 
-- Removed the two homepage boxes that covered the logo.
-- Kept the logo at its original `735 × 760` proportions on every page.
-- Made the Spotify artist embed load normally by default.
-- Removed the homepage privacy/accessibility promotional section.
-- Kept Privacy, Accessibility, and Terms as footer buttons.
-- Replaced the header Spotify button with **Create account / Login**. It changes to **My Dashboard** after sign-in.
-- Centralized the repeated header, footer, account button, age entrance, accessibility controls, catalog, and membership data.
-- Added a populated digital store and shopping bag.
-- Linked membership choices directly to store checkout.
-- Changed membership order to Listener, Velvet Patron, then **Inner Circle as the highest level**.
-- Added secure-account frontend pages: authentication, dashboard, library, member directory, messages, account settings, and staff dashboard.
-- Added manual account permissions modeled after the Woodmill Pond system.
-- Added a protected technical Administrator that ordinary managers cannot edit, demote, disable, or change.
-- Added Supabase schema, row-level security, private storage rules, Stripe Checkout functions, webhook fulfillment, and billing portal integration.
+- The header account action is now **Member Portal** instead of “Create Account / Login.”
+- Registration and sign-in work directly through the included PHP backend; there is no Supabase configuration dependency or “account services unavailable” state.
+- The sign-in and registration experience was redesigned as two balanced panels with the logo kept in its own correctly proportioned introduction area.
+- Password reset is no longer a third panel. **Forgot password?** appears beneath the password field on the sign-in panel.
+- The public contact page is a working server-validated form that stores messages in private storage and can also email a configured recipient.
+- Optional authenticator-app two-factor authentication, encrypted TOTP secrets, one-time recovery codes, rate limiting, CSRF protection, protected administration, audit logging, and session invalidation were added based on the Woodmill Pond security architecture.
+- Stripe Checkout can securely attach one-time purchases and paid memberships to the signed-in account after a verified webhook event.
 
-## Public pages
+## Hosting requirements
 
-- `index.html` — homepage
-- `music.html` — Spotify catalog
-- `membership.html` — membership comparison
-- `store.html` — memberships and digital products
-- `events.html` — confirmed public events and member-invitation explanation
-- `about.html` — project story
-- `contact.html` — Netlify contact form
-- `privacy.html`, `accessibility.html`, `terms.html`
-- `404.html`, `thanks.html`, checkout result pages
+The full site requires a host that runs **PHP 8.1 or newer**. Static-only hosting such as GitHub Pages cannot run accounts, private files, messages, contact storage, permissions, or payment webhooks.
 
-## Account pages
+Required PHP extensions:
 
-- `auth.html` — login, registration, password reset
-- `dashboard.html` — membership, purchases, resources, quick links
-- `library.html` — permitted private resources and purchased products
-- `members.html` — visible member directory
-- `messages.html` — private participant-only conversations
-- `account.html` — profile, privacy, messages, password, billing, accessibility
-- `staff.html` — permission-sensitive administration
+- OpenSSL
+- Fileinfo
+- cURL for Stripe Checkout
+- JSON
+- Sessions
 
-## Store catalog and draft prices
+The production site must use HTTPS.
 
-The initial catalog is centralized in `assets/js/data.js` and mirrored in `backend/supabase/schema.sql`.
+## First installation
 
-Memberships:
+1. Upload the contents of `orgasmaphoria-site` to the website document root.
+2. Set `ORG_PRIVATE_STORAGE` to a writable directory **outside the public document root** whenever the host permits it.
+3. Set a strong one-time `ORG_SETUP_KEY` environment variable before initial setup.
+4. Visit `/admin/setup.php` and create the protected administrator account.
+5. Confirm that `/admin/setup.php` redirects to sign-in after setup.
+6. Configure contact email and Stripe only after the core site is running.
+7. Remove any server file-manager backups or ZIP files from the public document root.
 
-- Listener — free
-- Velvet Patron — $9/month
-- Inner Circle — $19/month, highest membership
+The protected administrator cannot be demoted, disabled, or edited by ordinary staff accounts. The one-time setup page locks after the protected account is created.
 
-Digital products:
+## Environment variables
 
-- Midnight Pages — $9
-- Signals & Stories — $12
-- The Listening Salon — $14
-- After Dark Invitation Kit — $8
-- Rituals of Connection — $15
-- Collector's Library · Volume I — $39
-
-These are editable starting prices. The client should approve product names, descriptions, prices, refund rules, and finished files before Stripe products are activated.
-
-## Recommended hosting
-
-Use Netlify for the static website and contact form, Supabase for accounts/database/private files, and Stripe for payments. Keep the Zigs Development GitHub Pages site as the public portfolio hub that links to the production domain.
-
-GitHub Pages alone cannot securely run the private account and payment features.
-
-## 1. Deploy the public website
-
-1. Create a new Netlify site from this folder or Git repository.
-2. Set the publish directory to the folder containing `index.html`.
-3. Confirm the `contact` form appears in Netlify Forms.
-4. Add the real contact-notification recipient.
-5. Set the custom domain before configuring authentication redirects and Stripe URLs.
-6. Remove the optional sitemap plugin from `netlify.toml` if it is not installed for the account.
-
-## 2. Create the Supabase project
-
-1. Create a Supabase project.
-2. Open SQL Editor.
-3. Run `backend/supabase/schema.sql` once.
-4. In Authentication settings, enable email/password accounts and email confirmation.
-5. Add the production site URL and allowed redirect URLs:
-   - `/dashboard.html`
-   - `/account.html`
-   - `/auth.html`
-6. Configure password strength and leaked-password protection.
-7. Confirm the private `member-files` storage bucket exists.
-8. Do not make that bucket public.
-
-## 3. Connect the browser to Supabase
-
-Open `assets/js/config.js` and set only the public values:
-
-```js
-window.ORG_CONFIG = Object.freeze({
-  supabaseUrl: "https://PROJECT.supabase.co",
-  supabaseAnonKey: "PUBLIC_ANON_KEY",
-  checkoutFunction: "create-checkout",
-  portalFunction: "create-portal",
-  siteUrl: "https://www.example.com",
-  contactEndpoint: "",
-  currency: "USD"
-});
-```
-
-The anon key is designed for browser use when Row Level Security is correctly configured. Never place the service-role key or Stripe secret in this file.
-
-## 4. Create the protected Administrator
-
-1. Create and verify the intended technical administrator through `auth.html`.
-2. Open `backend/supabase/first-admin.sql`.
-3. Replace `REPLACE_WITH_ADMIN_EMAIL`.
-4. Run it once in Supabase SQL Editor.
-5. Sign out and back in.
-6. Confirm the Staff Dashboard appears from My Dashboard.
-
-The protected Administrator cannot be modified by normal account managers. Managers can grant or remove permissions on ordinary accounts without forcing duplicate staff accounts.
-
-## 5. Create Stripe products and prices
-
-Create one recurring monthly Stripe Price for each paid membership and one one-time Price for each digital product. Copy the resulting `price_...` IDs into the `products` table.
-
-Example SQL:
-
-```sql
-update public.products set stripe_price_id='price_REPLACE', active=true where slug='velvet-patron';
-update public.products set stripe_price_id='price_REPLACE', active=true where slug='inner-circle';
-update public.products set stripe_price_id='price_REPLACE', active=true where slug='midnight-pages';
-```
-
-Repeat for each approved item. Products remain unavailable to checkout while `active=false` or `stripe_price_id` is empty.
-
-## 6. Deploy the Supabase Edge Functions
-
-Deploy:
-
-- `create-checkout`
-- `create-portal`
-- `stripe-webhook`
-
-Set function secrets:
+Use the host’s environment-variable or secrets panel. Do not put secret values in browser JavaScript.
 
 ```text
-STRIPE_SECRET_KEY
-STRIPE_WEBHOOK_SECRET
-SUPABASE_URL
-SUPABASE_SERVICE_ROLE_KEY
-SITE_URL
+ORG_SITE_URL=https://example.com
+ORG_PRIVATE_STORAGE=/absolute/private/path/orgasmaphoria
+ORG_SETUP_KEY=use-a-long-random-one-time-value
+ORG_CONTACT_RECIPIENT=business@example.com
+ORG_CONTACT_FROM=no-reply@example.com
+ORG_STRIPE_SECRET_KEY=sk_live_...
+ORG_STRIPE_WEBHOOK_SECRET=whsec_...
 ```
 
-`SITE_URL` must be the final production origin without a trailing slash.
+`ORG_SITE_URL` should not end with a slash. `ORG_CONTACT_FROM` should be an address authorized by the domain’s mail provider.
 
-The checkout and portal functions require a signed-in Supabase user. The webhook uses the service role and must never be callable with that secret from browser code.
+## Contact form
 
-## 7. Configure the Stripe webhook
+`contact.php` validates CSRF, uses a honeypot, rate-limits submissions, validates every field on the server, and stores accepted messages in private JSON storage. Staff with `view_contacts` permission can review them at `/admin/contacts.php`.
 
-Create a Stripe webhook endpoint pointing to the deployed `stripe-webhook` function. Subscribe at minimum to:
+When `ORG_CONTACT_RECIPIENT` is configured and the host supports PHP mail, the message is also emailed. Private storage remains the authoritative inbox even when email delivery fails.
 
-- `checkout.session.completed`
-- `customer.subscription.created`
-- `customer.subscription.updated`
-- `customer.subscription.deleted`
-- `charge.refunded`
+## Accounts and permissions
 
-Copy the webhook signing secret into `STRIPE_WEBHOOK_SECRET`.
+Personal accounts are created at `/account/login.php` with free **Listener** access. Staff can manually change:
 
-The webhook is what grants membership and product permissions. Do not grant access based only on a success-page redirect.
+- Account status
+- Membership level
+- Member, staff, or administrator role
+- Granular staff permissions
+- Optional 2FA reset after identity verification
 
-## 8. Upload sellable and member files
+The membership order is:
 
-Use Staff Dashboard → Resources after configuration.
+1. Listener
+2. Velvet Patron
+3. Inner Circle — highest access
 
-For every item:
+Private resource access is enforced by PHP before download. Hiding a link in the browser is never used as the security boundary.
 
-1. Enter title, subtitle, description, type, tags, status, and access level.
-2. Upload the finished file.
-3. Use `listener`, `velvet`, `inner`, or `staff` for membership access.
-4. For a separately purchased product, set `access_level='purchase'` and connect `product_id` in Supabase.
-5. Test with an account at each relevant membership level.
+## Two-factor authentication
 
-Private files must never be copied into the public website folder or public Git repository.
+2FA is optional for every account. Members can enable it from **My Account → Security** using any standard TOTP authenticator app.
 
-## Account roles and permissions
+The implementation includes:
 
-Roles:
+- AES-256-GCM encryption for stored authenticator secrets
+- Eight one-time recovery codes stored only as password hashes
+- Rejection of reused TOTP counters
+- Ten-minute sign-in challenges
+- Twelve-hour second-factor session verification
+- Rate limiting for incorrect codes
+- Security-version invalidation after sensitive changes
+- Administrative reset for ordinary accounts
+- No staff reset of the protected administrator’s enrollment
 
-- Member
-- Staff
-- Manager
-- Protected Technical Administrator
+The automatically created `two-factor.key` file must remain in private storage and must be included in encrypted server backups. Losing it makes existing TOTP enrollments unreadable.
 
-Granular permissions:
+## Password and session security
 
-- Manage accounts and approvals
-- Manage roles and permissions
-- Manage resources and files
-- Manage products and memberships
-- Manage events and invitations
-- Review reports and moderation
-- View orders and subscriptions
-- View security and audit records
+- Passwords are hashed with PHP `password_hash()` using the current default algorithm.
+- New passwords require at least 12 characters and reject a small list of common values.
+- Sign-in, registration, password recovery, password changes, and 2FA attempts are rate-limited by hashed identifier and IP.
+- Session IDs rotate at sign-in, sign-out, and successful 2FA completion.
+- Session cookies use `HttpOnly`, `SameSite=Lax`, and `Secure` on HTTPS.
+- Password changes and “sign out everywhere” increment the account security version, invalidating other sessions.
+- Password-reset tokens are random, stored only as SHA-256 hashes, expire after one hour, and are single-use.
+- Password-reset responses do not reveal whether an email address exists.
 
-The dashboard shows only administration sections that the signed-in account is allowed to use.
+Password reset email requires working outbound mail on the server. Configure SMTP or a transactional mail service at the hosting layer when PHP `mail()` is unavailable.
 
-## Payment and permission flow
+## Stripe payments
 
-1. The customer creates or signs into one personal account.
-2. The customer chooses a membership or product.
-3. The server creates Stripe Checkout using that user ID as trusted metadata.
-4. Stripe sends a signed webhook after successful payment.
-5. The webhook updates membership or purchase entitlements.
-6. Supabase Row Level Security checks the entitlement before returning resource metadata or files.
-7. Authorized staff may manually change membership or granular permissions when necessary.
+The store sends only signed-in, server-authoritative catalog items to `/api/checkout.php`. The browser cannot set prices.
 
-## Member privacy
+Configure Stripe as follows:
 
-Members can choose:
+1. Set `ORG_STRIPE_SECRET_KEY`.
+2. Create a Stripe webhook endpoint pointing to:
 
-- Whether the profile appears in the directory
-- Whether new direct messages are accepted
-- Whether online status is shown
-- Biography and interests displayed to members
-- Accessibility and reading preferences
+```text
+https://example.com/billing/webhook.php
+```
 
-The member directory does not display email addresses.
+3. Subscribe the webhook to:
+   - `checkout.session.completed`
+   - `checkout.session.async_payment_succeeded`
+   - `customer.subscription.deleted`
+4. Set the resulting signing secret as `ORG_STRIPE_WEBHOOK_SECRET`.
+5. Complete one one-time product purchase and one membership purchase in Stripe test mode before switching to live keys.
 
-## Security checklist before launch
+Access is granted only after a correctly signed webhook. The checkout success page does not grant access by itself.
 
-- Review every SQL policy with a second developer.
-- Keep RLS enabled on every private table.
-- Confirm anonymous users cannot query profiles, messages, orders, memberships, permissions, or resources.
-- Confirm private Storage files cannot be opened without an authorized account.
-- Require email verification.
-- Require strong passwords and enable leaked-password protection.
-- Require MFA for privileged staff accounts.
-- Keep Stripe and Supabase secrets only in server-side secret storage.
-- Verify Stripe webhook signatures.
-- Test refund and subscription-cancel behavior.
-- Add rate limiting and abuse controls for messages and reports.
-- Establish backups, retention, moderation, refund, and account-deletion procedures.
-- Have Privacy and Terms reviewed for the final business entity and jurisdiction.
+Current catalog prices are server-authoritative in `includes/config.php`. Update the matching display values in `assets/js/data.js` at the same time so the public store and checkout agree.
 
-## Testing checklist
+## Private resources
 
-Public:
+Staff with `manage_content` permission can upload PDFs, EPUB files, ZIP archives, JPG, PNG, WebP, or plain-text files up to 25 MB. Files are renamed to random identifiers, MIME-checked with Fileinfo, stored privately, and streamed only after an authenticated server permission check.
 
-- All links and images
-- Desktop, tablet, and mobile layouts
-- Header account button
-- Logo proportions
-- Default Spotify embed
-- Age entrance
-- Accessibility controls
-- Contact form and actual delivery
-- Store bag and empty states
+Resource access can be assigned to:
 
-Accounts:
+- Public / Listener
+- Velvet Patron
+- Inner Circle
+- Staff only
+- Purchasers of a specific product entitlement
 
-- Registration and email verification
-- Login, logout, password reset, password change
-- Disabled account behavior
-- Profile and directory visibility
-- Message permission choices
-- Conversation access isolation
-- Membership checkout and webhook grant
-- One-time product checkout and entitlement grant
-- Billing portal
-- Refund entitlement removal
-- Staff permission visibility
-- Protected Administrator restrictions
-- Manual membership change
-- Resource upload and private download
-- Audit records
+For production, keep `ORG_PRIVATE_STORAGE` outside the public document root. The included `storage-private/.htaccess` is defense in depth, not a replacement for external private storage.
 
-## Files that contain live data
+## Contact, message, and audit data
 
-Live data is not stored in this website ZIP. It remains in Supabase, Supabase Storage, Stripe, and Netlify Forms. Future website patches should not delete or recreate the production database unless a reviewed migration explicitly requires it.
+Private JSON files use file locks, atomic replacement, restrictive permissions, and bounded logs where appropriate. This architecture is suitable for a modest early-stage member site. Before very large membership volume, migrate private records to a managed relational database while preserving the same server-side permission rules.
 
-## Updating repeated content
+## Security headers
 
-- Memberships and store cards: `assets/js/data.js`
-- Public Supabase settings: `assets/js/config.js`
-- Shared header, footer, age entrance, accessibility controls: `assets/js/app.js`
-- Database and permissions: `backend/supabase/schema.sql`
-- Checkout behavior: `supabase/functions/create-checkout/index.ts`
-- Payment fulfillment: `supabase/functions/stripe-webhook/index.ts`
+PHP sends a restrictive Content Security Policy plus MIME-sniffing, framing, referrer, permissions, and HSTS headers. The included root `.htaccess` adds Apache-level protection, HTTPS redirects, route redirects, directory-index blocking, and denial of sensitive file extensions.
 
-## Known requirements still needing client action
+On Nginx or another server, translate the `.htaccess` rules into the host’s configuration and explicitly deny public access to:
 
-- Final business email and Netlify notification recipient
-- Final domain
-- Approved product names, prices, descriptions, refund terms, and finished files
-- Stripe account and Price IDs
-- Supabase project and keys
-- First protected Administrator email
-- Final social links
-- Final events
-- Legal review before accepting public accounts and payments
+```text
+/includes/
+/storage-private/
+```
+
+Only `billing/webhook.php` should be reachable inside `/billing/`.
+
+## Local review
+
+From the `orgasmaphoria-site` directory:
+
+```bash
+php -S 127.0.0.1:8080
+```
+
+Then open `http://127.0.0.1:8080/`. The PHP development server is for private review only and must not be used as the public production server.
+
+## Final launch checklist
+
+- Use HTTPS with automatic renewal.
+- Move private storage outside the web root.
+- Create and secure the protected administrator.
+- Enable 2FA on administrator and staff accounts even though it remains optional.
+- Configure reliable outbound email.
+- Configure Stripe test keys and webhook, then verify fulfillment.
+- Replace sample product artwork and descriptions with approved final assets.
+- Upload actual member resources through the staff portal.
+- Set the real contact recipient and sender.
+- Review Privacy and Terms with the business owner and qualified counsel.
+- Back up private storage, including `two-factor.key`, using encrypted backups.
+- Test keyboard navigation, text resizing, contrast, mobile layouts, contact delivery, account recovery, permissions, downloads, checkout, and 2FA before announcing the site.

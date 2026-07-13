@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /backend/
-Disallow: /supabase/
+Disallow: /account/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /billing/
+Disallow: /includes/
+Disallow: /storage-private/

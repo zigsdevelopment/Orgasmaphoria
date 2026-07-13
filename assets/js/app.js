@@ -1,32 +1,22 @@
 (() => {
   "use strict";
 
-  const CONFIG = window.ORG_CONFIG || {};
-  const CONTENT = window.ORG_CONTENT || { site: {} };
+  const CONTENT = window.ORG_CONTENT || { site: {}, products: [], memberships: [], permissions: [] };
+  const BASE = String(window.ORG_BASE || "");
   const STORAGE = {
-    age: "org_age_confirmed_v4",
-    preferences: "org_accessibility_v4",
-    cart: "org_cart_v4"
+    age: "org_age_confirmed_v5",
+    preferences: "org_accessibility_v5",
+    cart: "org_cart_v5"
   };
   const root = document.documentElement;
   const qs = (selector, scope = document) => scope.querySelector(selector);
   const qsa = (selector, scope = document) => [...scope.querySelectorAll(selector)];
-
-  const configured = Boolean(
-    CONFIG.supabaseUrl &&
-    CONFIG.supabaseAnonKey &&
-    /^https:\/\//.test(CONFIG.supabaseUrl) &&
-    CONFIG.supabaseAnonKey.length > 20
-  );
-
-  const client = configured && window.supabase?.createClient
-    ? window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey, {
-        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
-      })
-    : null;
-
   let session = null;
-  let profile = null;
+
+  function sitePath(value = "") {
+    if (!value || /^(?:https?:|mailto:|tel:|#|\/\/)/i.test(value)) return value;
+    return `${BASE}${value}`;
+  }
 
   function escapeHTML(value = "") {
     return String(value)
@@ -47,10 +37,10 @@
   }
 
   function writeJSON(key, value) {
-    try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* no-op */ }
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* Storage may be blocked. */ }
   }
 
-  function formatMoney(value, currency = CONFIG.currency || "USD") {
+  function formatMoney(value, currency = "USD") {
     return new Intl.NumberFormat("en-US", { style: "currency", currency, maximumFractionDigits: 2 }).format(Number(value || 0));
   }
 
@@ -86,7 +76,7 @@
 
   function navLink(href, label, page) {
     const active = pageName() === page;
-    return `<a href="${href}"${active ? ' class="is-active" aria-current="page"' : ""}>${label}</a>`;
+    return `<a href="${sitePath(href)}"${active ? ' class="is-active" aria-current="page"' : ""}>${label}</a>`;
   }
 
   function renderHeader() {
@@ -95,8 +85,8 @@
     target.className = "site-header";
     target.innerHTML = `
       <div class="site-header__inner">
-        <a class="brand" href="index.html" aria-label="Orgasmaphoria home">
-          <img src="assets/images/logo.webp" width="735" height="760" alt="">
+        <a class="brand" href="${sitePath("index.html")}" aria-label="Orgasmaphoria home">
+          <img src="${sitePath("assets/images/logo.webp")}" width="735" height="760" alt="">
           <span><strong>Orgasmaphoria</strong><small>Music · Mystery · Connection</small></span>
         </a>
         <nav class="primary-nav" data-primary-nav aria-label="Primary navigation">
@@ -106,10 +96,10 @@
           ${navLink("events.html", "Events", "events")}
           ${navLink("store.html", "Store", "store")}
           ${navLink("about.html", "About", "about")}
-          ${navLink("contact.html", "Contact", "contact")}
+          ${navLink("contact.php", "Contact", "contact")}
         </nav>
         <div class="header-actions">
-          <a class="button button--account" href="auth.html" data-account-link><span data-account-label>Create account / Login</span></a>
+          <a class="button button--account" href="${sitePath("account/login.php")}" data-account-link><span data-account-label>Member Portal</span></a>
           <button class="icon-button menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Open navigation">☰</button>
         </div>
       </div>`;
@@ -122,21 +112,21 @@
     target.innerHTML = `
       <div class="site-footer__inner">
         <div class="footer-brand">
-          <a class="brand" href="index.html" aria-label="Orgasmaphoria home">
-            <img src="assets/images/logo.webp" width="735" height="760" alt="">
+          <a class="brand" href="${sitePath("index.html")}" aria-label="Orgasmaphoria home">
+            <img src="${sitePath("assets/images/logo.webp")}" width="735" height="760" alt="">
             <span><strong>Orgasmaphoria</strong><small>Music · Mystery · Connection</small></span>
           </a>
           <p>An immersive artist world centered on music, spoken storytelling, mystery, mature romance, and meaningful connection.</p>
         </div>
         <div class="footer-links">
-          <div><h3>Explore</h3><a href="music.html">Listen</a><a href="membership.html">Membership</a><a href="events.html">Events</a><a href="store.html">Store</a></div>
-          <div><h3>Community</h3><a href="auth.html">Account</a><a href="library.html">Library</a><a href="members.html">Members</a><a href="messages.html">Messages</a></div>
-          <div><h3>Orgasmaphoria</h3><a href="about.html">About</a><a href="contact.html">Contact</a><a href="${CONTENT.site.spotifyUrl}" target="_blank" rel="noreferrer">Spotify ↗</a></div>
+          <div><h3>Explore</h3><a href="${sitePath("music.html")}">Listen</a><a href="${sitePath("membership.html")}">Membership</a><a href="${sitePath("events.html")}">Events</a><a href="${sitePath("store.html")}">Store</a></div>
+          <div><h3>Community</h3><a href="${sitePath("account/index.php")}">Account</a><a href="${sitePath("account/library.php")}">Library</a><a href="${sitePath("account/members.php")}">Members</a><a href="${sitePath("account/messages.php")}">Messages</a></div>
+          <div><h3>Orgasmaphoria</h3><a href="${sitePath("about.html")}">About</a><a href="${sitePath("contact.php")}">Contact</a><a href="${escapeHTML(CONTENT.site.spotifyUrl || "#")}" target="_blank" rel="noreferrer">Spotify ↗</a></div>
         </div>
       </div>
       <div class="site-footer__bottom">
         <span>© <span data-current-year></span> Orgasmaphoria. All rights reserved.</span>
-        <div class="footer-policy-buttons"><a href="privacy.html">Privacy</a><a href="accessibility.html">Accessibility</a><a href="terms.html">Terms</a></div>
+        <div class="footer-policy-buttons"><a href="${sitePath("privacy.html")}">Privacy</a><a href="${sitePath("accessibility.html")}">Accessibility</a><a href="${sitePath("terms.html")}">Terms</a></div>
         <span>Intended for adults 18 and older.</span>
       </div>`;
   }
@@ -147,7 +137,7 @@
         <div class="modal age-gate" data-age-gate hidden>
           <div class="modal__backdrop"></div>
           <section class="modal__panel age-gate__panel" role="dialog" aria-modal="true" aria-labelledby="age-title">
-            <img src="assets/images/logo.webp" width="735" height="760" alt="">
+            <img src="${sitePath("assets/images/logo.webp")}" width="735" height="760" alt="">
             <p class="eyebrow">Welcome to Orgasmaphoria</p>
             <h2 id="age-title">An experience for adults.</h2>
             <p>This website explores mature romantic themes through music, stories, art, and community. Confirm that you are 18 or older to enter.</p>
@@ -324,25 +314,15 @@
     });
   }
 
-  async function loadProfile(userId) {
-    if (!client || !userId) return null;
-    const { data, error } = await client.from("profiles").select("*").eq("id", userId).maybeSingle();
-    if (error) return null;
-    return data;
-  }
-
   async function refreshSession() {
-    if (!client) {
-      session = null;
-      profile = null;
-      updateAccountButton();
-      return null;
+    try {
+      const response = await fetch(sitePath("api/session.php"), { credentials: "same-origin", headers: { Accept: "application/json" } });
+      session = response.ok ? await response.json() : { authenticated: false };
+    } catch {
+      session = { authenticated: false };
     }
-    const { data } = await client.auth.getSession();
-    session = data.session || null;
-    profile = session?.user?.id ? await loadProfile(session.user.id) : null;
     updateAccountButton();
-    window.dispatchEvent(new CustomEvent("org:session", { detail: { session, profile } }));
+    window.dispatchEvent(new CustomEvent("org:session", { detail: session }));
     return session;
   }
 
@@ -350,35 +330,34 @@
     const link = qs("[data-account-link]");
     const label = qs("[data-account-label]");
     if (!link || !label) return;
-    if (session?.user) {
-      link.href = "dashboard.html";
-      label.textContent = profile?.display_name ? `My Dashboard` : "My Dashboard";
+    if (session?.authenticated) {
+      link.href = sitePath("account/index.php");
+      label.textContent = "My Account";
       link.classList.add("is-signed-in");
     } else {
-      link.href = "auth.html";
-      label.textContent = "Create account / Login";
+      link.href = sitePath("account/login.php");
+      label.textContent = "Member Portal";
       link.classList.remove("is-signed-in");
     }
   }
 
   async function requireSession(returnUrl = location.href) {
     if (!session) await refreshSession();
-    if (session?.user) return session;
-    location.href = `auth.html?return=${encodeURIComponent(returnUrl)}`;
+    if (session?.authenticated) return session;
+    let destination = String(returnUrl || "");
+    try {
+      const parsed = new URL(destination, location.href);
+      destination = parsed.origin === location.origin ? `${parsed.pathname}${parsed.search}${parsed.hash}` : "";
+    } catch {
+      destination = "";
+    }
+    location.href = `${sitePath("account/login.php")}?return=${encodeURIComponent(destination)}`;
     return null;
   }
 
   async function hasPermission(permissionKey) {
-    if (!client || !session?.user) return false;
-    const { data, error } = await client.rpc("has_permission", { requested_permission: permissionKey });
-    return !error && data === true;
-  }
-
-  async function invokeFunction(name, body) {
-    if (!client) throw new Error("Service unavailable");
-    const { data, error } = await client.functions.invoke(name, { body });
-    if (error) throw error;
-    return data;
+    if (!session) await refreshSession();
+    return Boolean(session?.permissions?.[permissionKey] || session?.role === "admin");
   }
 
   function initShare() {
@@ -406,21 +385,21 @@
   renderGlobalModals();
 
   window.ORG_APP = {
-    CONFIG,
     CONTENT,
     STORAGE,
-    client,
-    configured,
+    BASE,
+    sitePath,
+    client: null,
+    configured: true,
     escapeHTML,
     formatMoney,
     formatDate,
     toast,
     getSession: () => session,
-    getProfile: () => profile,
+    getProfile: () => session?.user || null,
     refreshSession,
     requireSession,
     hasPermission,
-    invokeFunction,
     getCart,
     setCart,
     addToCart,
@@ -436,8 +415,5 @@
     initGlobalLinks();
     updateCartBadge();
     await refreshSession();
-    if (client) {
-      client.auth.onAuthStateChange(() => { setTimeout(refreshSession, 0); });
-    }
   });
 })();
